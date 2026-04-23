@@ -1,17 +1,17 @@
 services:
-  mysql:
-    image: mysql
-    container_name: spespapp-mysql
-    restart: unless-stopped
-
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-
-    ports:
-      - "3306:3306"
-
-    volumes:
-      - ./mysql_data:/var/lib/mysql
+#  mysql:
+#    image: mysql
+#    container_name: spespapp-mysql
+#    restart: unless-stopped
+#
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#
+#    ports:
+#      - "3306:3306"
+#
+#    volumes:
+#      - ./mysql_data:/var/lib/mysql
   redis:
     container_name: spespapp-redis
     image: redis:trixie
