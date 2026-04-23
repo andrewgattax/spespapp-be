@@ -1,0 +1,23 @@
+services:
+  mysql:
+    image: mysql
+    container_name: spespapp-mysql
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+  redis:
+    container_name: spespapp-redis
+    image: redis:trixie
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning #--requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes:
+      - ./redis_data:/data

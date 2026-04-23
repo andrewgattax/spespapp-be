@@ -1,10 +1,10 @@
-package it.trinex.spespapp;
+package it.trinex.spespappbe;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpespappApplicationTests {
+class SpespappBeApplicationTests {
 
     @Test
     void contextLoads() {
