@@ -1,6 +1,7 @@
 server:
   servlet:
     context-path: /api
+  port: ${SERVER_PORT}
 
 spring:
   application:
