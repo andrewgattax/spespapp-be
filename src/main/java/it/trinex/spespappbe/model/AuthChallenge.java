@@ -1,22 +1,21 @@
 package it.trinex.spespappbe.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.UUID;
 
-@Getter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthChallenge {
-    private final UUID id;
-    private final String username;
-    @JsonIgnore
-    private final byte[] nonce;
-    private final String nonceBase64;
-    private final Instant expiresAt;
+    private UUID id;
+    private String username;
+    private String nonceBase64;
+    private Instant expiresAt;
 
     public AuthChallenge(String username) {
         this.id = UUID.randomUUID();
@@ -25,12 +24,12 @@ public class AuthChallenge {
 
         SecureRandom secureRandom = new SecureRandom();
 
-        nonce = new byte[64];
+        byte[] nonce = new byte[64];
 
-        secureRandom.nextBytes(this.nonce);
+        secureRandom.nextBytes(nonce);
 
         this.nonceBase64 = Base64.getUrlEncoder().withoutPadding()
-                .encodeToString(this.nonce);
+                .encodeToString(nonce);
 
         this.expiresAt = Instant.now().plusSeconds(30);
     }

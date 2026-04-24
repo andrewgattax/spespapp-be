@@ -16,6 +16,10 @@ target/
 devcontainers/mysql_data
 devcontainers/redis_data
 
+test-js/node_modules
+test-js/private.pem
+test-js/package-lock.json
+
 .env
 
 ### IntelliJ IDEA ###

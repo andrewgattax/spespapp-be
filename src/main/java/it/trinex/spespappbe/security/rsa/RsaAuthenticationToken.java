@@ -5,13 +5,14 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.UUID;
 
 public class RsaAuthenticationToken extends AbstractAuthenticationToken {
 
-    private final String challengeId;
+    private final UUID challengeId;
     private final String signatureBase64;
 
-    public RsaAuthenticationToken(String principal, String credentials) {
+    public RsaAuthenticationToken(UUID principal, String credentials) {
         super((Collection<? extends GrantedAuthority>) null);
         this.challengeId = principal;
         this.signatureBase64 = credentials;
@@ -20,11 +21,11 @@ public class RsaAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public @Nullable String getCredentials() {
-        return challengeId;
+        return signatureBase64;
     }
 
     @Override
-    public @Nullable String getPrincipal() {
-        return signatureBase64;
+    public @Nullable UUID getPrincipal() {
+        return challengeId;
     }
 }

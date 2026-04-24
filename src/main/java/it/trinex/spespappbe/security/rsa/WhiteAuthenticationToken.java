@@ -24,6 +24,6 @@ public class WhiteAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public @Nullable Object getPrincipal() {
-        return null;
+        return this.principal;
     }
 }

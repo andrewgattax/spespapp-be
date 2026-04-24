@@ -81,14 +81,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // Estrai dettagli dal token senza accedere al DB
             final String ruolo = jwtService.estraiRuolo(jwt);
             final Long userId = jwtService.estraiUserId(jwt);
-            final Integer storiePubblicate = jwtService.estraiClaimExtra(jwt, "storiePubblicate");
-            final Integer templateSalvati = jwtService.estraiClaimExtra(jwt, "templateSalvati");
-            final Integer storieCondivise = jwtService.estraiClaimExtra(jwt, "storieCondivise");
             List<SimpleGrantedAuthority> authorities = ruolo != null
                     ? List.of(new SimpleGrantedAuthority("ROLE_" + ruolo))
                     : List.of();
 
-            UserDetails principal = new JwtUserPrincipal(userId, username, storiePubblicate, templateSalvati, storieCondivise, authorities);
+            UserDetails principal = new JwtUserPrincipal(userId, username, authorities);
 
             if (jwtService.isTokenValido(jwt, principal)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(

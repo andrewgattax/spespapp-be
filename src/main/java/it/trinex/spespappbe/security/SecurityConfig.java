@@ -2,6 +2,7 @@ package it.trinex.spespappbe.security;
 
 import it.trinex.spespappbe.repo.UserRepo;
 import it.trinex.spespappbe.security.rsa.RsaAuthenticationProvider;
+import it.trinex.spespappbe.service.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,10 +30,11 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtFilter;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
     private final UserRepo utenteRepo;
+    private final RedisService redisService;
 
     @Bean
     public RsaAuthenticationProvider authenticationProvider() {
-        return new RsaAuthenticationProvider();
+        return new RsaAuthenticationProvider(redisService, utenteRepo);
     }
 
     /**

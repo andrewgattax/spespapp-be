@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
-public class LoginRequest {
+public class InitLoginRequest {
     @NotBlank(message = "Lo username è richiesto")
     private String username;
 }
