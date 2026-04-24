@@ -2,6 +2,8 @@ package it.trinex.spespappbe.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,6 +35,10 @@ public class SpespItem {
 
     @Column(nullable = false)
     private boolean checked;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PriorityLevel priorityLevel;
 
     @CreationTimestamp
     private Instant createdAt;
