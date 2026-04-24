@@ -16,10 +16,9 @@ public class CurrentUserService {
     private final UserRepo userRepo;
 
     public Optional<JwtUserPrincipal> getCurrentPrincipal() {
-        Optional<JwtUserPrincipal> userPrincipal = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+        return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
                 .filter(auth -> auth.getPrincipal() instanceof JwtUserPrincipal)
                 .map(auth -> (JwtUserPrincipal) auth.getPrincipal());
-        return userPrincipal;
     }
 
     public Optional<SpespappUser> getCurrentUser() {
