@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Ingredient {
     public Ingredient(String name) {
-        this.name = name != null ? name.trim().replace(" ", "_").toUpperCase() : null;
+        this.name = normalizeIngredientName(name);
     }
 
     @Id
@@ -29,4 +29,8 @@ public class Ingredient {
 
     @Column(nullable = false)
     private boolean isDeleted = false;
+
+    public static String normalizeIngredientName(String name) {
+        return name != null ? name.trim().replace(" ", "_").toUpperCase() : null;
+    }
 }
