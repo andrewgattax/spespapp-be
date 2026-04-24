@@ -44,5 +44,5 @@ public class SpespItem {
     private Instant createdAt;
 
     @UpdateTimestamp
-    private Instant lastModifiedAt;
+    private Instant updatedAt;
 }

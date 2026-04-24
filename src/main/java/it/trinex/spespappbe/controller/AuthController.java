@@ -1,8 +1,8 @@
 package it.trinex.spespappbe.controller;
 
-import it.trinex.spespappbe.dto.request.CompleteLoginRequest;
-import it.trinex.spespappbe.dto.request.InitLoginRequest;
-import it.trinex.spespappbe.dto.response.CompleteLoginResponse;
+import it.trinex.spespappbe.dto.request.auth.CompleteLoginRequest;
+import it.trinex.spespappbe.dto.request.auth.InitLoginRequest;
+import it.trinex.spespappbe.dto.response.auth.CompleteLoginResponse;
 import it.trinex.spespappbe.model.AuthChallenge;
 import it.trinex.spespappbe.service.AuthService;
 import jakarta.validation.Valid;

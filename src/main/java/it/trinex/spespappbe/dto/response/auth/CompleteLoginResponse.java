@@ -1,7 +1,6 @@
-package it.trinex.spespappbe.dto.response;
+package it.trinex.spespappbe.dto.response.auth;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter
