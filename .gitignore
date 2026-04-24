@@ -21,6 +21,7 @@ test-js/private.pem
 test-js/package-lock.json
 
 .env
+.env.*
 
 ### IntelliJ IDEA ###
 .idea
