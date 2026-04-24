@@ -1,7 +1,7 @@
 server:
   servlet:
     context-path: /api
-  port: ${SERVER_PORT}
+  port: ${SERVER_PORT:8080}
 
 spring:
   application:
@@ -25,12 +25,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-#        dialect: org.hibernate.dialect.MariaDBDialect
 
 security:
   jwt:
     secret: ${JWT_SECRET}
-    expiration-ms: ${JWT_EXPIRATION_MS}
+    expiration-ms: ${JWT_EXPIRATION_MS:3600000}
 
 logging:
   level:
