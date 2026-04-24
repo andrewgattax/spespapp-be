@@ -48,7 +48,23 @@ public class ListService {
         Ingredient ingredient = ingredientRepo.findByName(request.getIngredientName())
                 .orElseGet(() -> ingredientRepo.save(new Ingredient(request.getIngredientName())));
 
-        SpespItem newItem =
+        SpespItem newItem = SpespItem.builder()
+                .ingredient(ingredient)
+                .checked(false)
+                .priorityLevel(request.getPriorityLevel())
+                .quantity(request.getQuantity())
+                .build();
+
+        spespItemRepo.save(newItem);
+
+        return getList();
+    }
+
+    public ListResponseDTO addBulkItems(List<AddSpespItemRequest> requests) {
+        return ListResponseDTO.builder()
+                .itemsToBuy(List.of())
+                .recentlyBought(List.of())
+                .build();
     }
 
 }

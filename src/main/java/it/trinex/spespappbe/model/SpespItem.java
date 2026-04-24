@@ -13,7 +13,10 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -22,6 +25,9 @@ import java.time.Instant;
 @Entity
 @Table(name = "spesp_item")
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SpespItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

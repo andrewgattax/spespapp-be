@@ -23,7 +23,7 @@ public class ListController {
 
     @PostMapping("/item")
     public ResponseEntity<ListResponseDTO> addItem(@Valid @RequestBody AddSpespItemRequest ingredient) {
-
+        return ResponseEntity.ok(listService.addItem(ingredient));
     }
 
 }

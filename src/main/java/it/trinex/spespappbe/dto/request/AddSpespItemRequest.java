@@ -1,6 +1,7 @@
 package it.trinex.spespappbe.dto.request;
 
 
+import it.trinex.spespappbe.model.PriorityLevel;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
@@ -10,4 +11,5 @@ public class AddSpespItemRequest {
     private String ingredientName;
     @NotBlank(message = "La quantità è richiesta")
     private String quantity;
+    private PriorityLevel priorityLevel;
 }
