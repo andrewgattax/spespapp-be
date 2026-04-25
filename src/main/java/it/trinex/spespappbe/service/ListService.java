@@ -32,16 +32,11 @@ public class ListService {
     private final IngredientRepo ingredientRepo;
 
     public ListResponseDTO getList() {
-        List<SpespItemDTO> itemsToBuy = spespItemRepo.findAllByChecked(false)
-                .stream()
-                .map(spespItemMapper::toDto)
-                .toList();
+
+        List<SpespItemDTO> itemsToBuy = spespItemMapper.toDtoList(spespItemRepo.findAllByChecked(false));
 
         Instant daysAgoInstant = Instant.now().minus(DAYS_AGO, ChronoUnit.DAYS);
-        List<SpespItemDTO> recentlyBought = spespItemRepo.findAllRecentsBought(daysAgoInstant)
-                .stream()
-                .map(spespItemMapper::toDto)
-                .toList();
+        List<SpespItemDTO> recentlyBought = spespItemMapper.toDtoList(spespItemRepo.findAllRecentsBought(daysAgoInstant));
 
         return ListResponseDTO.builder()
                 .itemsToBuy(itemsToBuy)
