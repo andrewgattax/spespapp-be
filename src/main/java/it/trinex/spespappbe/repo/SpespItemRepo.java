@@ -11,7 +11,7 @@ public interface SpespItemRepo extends JpaRepository<SpespItem, Long> {
 
     List<SpespItem> findAllByChecked(boolean checked);
 
-    @Query("SELECT s FROM SpespItem s WHERE s.checked = true AND s.updatedAt >= :timeAfter")
+    @Query("SELECT s FROM SpespItem s WHERE s.checked = true AND s.updatedAt >= :daysAgoInstant")
     List<SpespItem> findAllRecentsBought(Instant daysAgoInstant);
 
 }

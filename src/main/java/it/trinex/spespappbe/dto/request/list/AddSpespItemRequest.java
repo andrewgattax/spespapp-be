@@ -1,4 +1,4 @@
-package it.trinex.spespappbe.dto.request;
+package it.trinex.spespappbe.dto.request.list;
 
 
 import it.trinex.spespappbe.model.PriorityLevel;

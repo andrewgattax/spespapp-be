@@ -1,8 +1,12 @@
 package it.trinex.spespappbe.service;
 
 import it.trinex.spespappbe.dto.SpespItemDTO;
-import it.trinex.spespappbe.dto.request.AddSpespItemRequest;
+import it.trinex.spespappbe.dto.request.list.AddSpespItemBulkRequest;
+import it.trinex.spespappbe.dto.request.list.AddSpespItemRequest;
+import it.trinex.spespappbe.dto.request.list.CheckItemBulkRequest;
+import it.trinex.spespappbe.dto.request.list.DeleteItemBulkRequest;
 import it.trinex.spespappbe.dto.response.list.ListResponseDTO;
+import it.trinex.spespappbe.exception.RecordNotFoundException;
 import it.trinex.spespappbe.mapper.SpespItemMapper;
 import it.trinex.spespappbe.model.Ingredient;
 import it.trinex.spespappbe.model.SpespItem;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,8 +50,11 @@ public class ListService {
     }
 
     public ListResponseDTO addItem(AddSpespItemRequest request) {
-        Ingredient ingredient = ingredientRepo.findByName(request.getIngredientName())
-                .orElseGet(() -> ingredientRepo.save(new Ingredient(request.getIngredientName())));
+
+        String normalizedName = Ingredient.normalizeIngredientName(request.getIngredientName());
+
+        Ingredient ingredient = ingredientRepo.findByName(normalizedName)
+                .orElseGet(() -> ingredientRepo.save(new Ingredient(normalizedName)));
 
         SpespItem newItem = SpespItem.builder()
                 .ingredient(ingredient)
@@ -60,11 +68,79 @@ public class ListService {
         return getList();
     }
 
-    public ListResponseDTO addBulkItems(List<AddSpespItemRequest> requests) {
-        return ListResponseDTO.builder()
-                .itemsToBuy(List.of())
-                .recentlyBought(List.of())
-                .build();
+    public ListResponseDTO addItemBulk(AddSpespItemBulkRequest request) {
+
+        List<SpespItem> toPush = new ArrayList<>();
+
+        for (AddSpespItemRequest item : request.getItems()) {
+
+            String normalizedName = Ingredient.normalizeIngredientName(item.getIngredientName());
+
+            Ingredient ingredient = ingredientRepo.findByName(normalizedName)
+                    .orElseGet(() -> ingredientRepo.save(new Ingredient(normalizedName)));
+
+            SpespItem newItem = SpespItem.builder()
+                    .ingredient(ingredient)
+                    .checked(false)
+                    .priorityLevel(item.getPriorityLevel())
+                    .quantity(item.getQuantity())
+                    .build();
+
+            toPush.add(newItem);
+        }
+
+        spespItemRepo.saveAll(toPush);
+
+        return getList();
+    }
+
+    public ListResponseDTO checkItem(Long id) {
+        SpespItem item = spespItemRepo.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Spespitem non trovato con id: " + id));
+
+        item.setChecked(true);
+
+        spespItemRepo.save(item);
+
+        return getList();
+    }
+
+    public ListResponseDTO checkItemBulk(CheckItemBulkRequest request) {
+        List<SpespItem> itemsToCheck = spespItemRepo.findAllById(request.getItemIds());
+
+        if (itemsToCheck.size() != request.getItemIds().size()) {
+            throw new RecordNotFoundException("Alcuni Spespitem non sono stati trovati");
+        }
+
+        for (SpespItem item : itemsToCheck) {
+            item.setChecked(true);
+        }
+
+        spespItemRepo.saveAll(itemsToCheck);
+
+        return getList();
+    }
+
+    public ListResponseDTO deleteItem(Long id) {
+        if (!spespItemRepo.existsById(id)) {
+            throw new RecordNotFoundException("Spespitem non trovato con id: " + id);
+        }
+
+        spespItemRepo.deleteById(id);
+
+        return getList();
+    }
+
+    public ListResponseDTO deleteItemBulk(DeleteItemBulkRequest request) {
+        List<SpespItem> itemsToDelete = spespItemRepo.findAllById(request.getItemIds());
+
+        if (itemsToDelete.size() != request.getItemIds().size()) {
+            throw new RecordNotFoundException("Alcuni Spespitem non sono stati trovati");
+        }
+
+        spespItemRepo.deleteAll(itemsToDelete);
+
+        return getList();
     }
 
 }

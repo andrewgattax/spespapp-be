@@ -57,7 +57,7 @@ public class AuthService {
         if(principal == null) {
             throw new UnauthorizedException("Autenticazione fallita, utente non trovato");
         }
-        String authToken = jwtService.generaToken(Map.of(), principal);
+        String authToken = jwtService.generaToken(Map.of("uid", principal.getId()), principal);
 
         return CompleteLoginResponse.builder()
                 .authToken(authToken)
