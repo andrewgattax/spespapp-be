@@ -1,4 +1,4 @@
-package it.trinex.spespappbe.dto.request;
+package it.trinex.spespappbe.dto.request.auth;
 
 import lombok.Getter;
 

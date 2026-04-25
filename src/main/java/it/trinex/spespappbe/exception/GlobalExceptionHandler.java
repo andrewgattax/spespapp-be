@@ -283,14 +283,14 @@ public class GlobalExceptionHandler {
     /**
      * Fallback handler per tutte le altre eccezioni non gestite.
      */
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ErrorResponse> handleAllExceptions(Exception ex, HttpServletRequest request) {
-//        ErrorResponse errorResponse = new ErrorResponse(
-//                HttpStatus.INTERNAL_SERVER_ERROR,
-//                "Internal Server Error",
-//                "Internal Server Error",
-//                request.getRequestURI()
-//        );
-//        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleAllExceptions(Exception ex, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "Internal Server Error",
+                "Internal Server Error",
+                request.getRequestURI()
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

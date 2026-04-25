@@ -16,9 +16,11 @@ target/
 devcontainers/mysql_data
 devcontainers/redis_data
 
-test-js/node_modules
-test-js/private.pem
-test-js/package-lock.json
+test-js/**
+
+!test-js/generate-keys.js
+!test-js/login.js
+!test-js/package.json
 
 .env
 .env.*
@@ -41,3 +43,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+open-api-docs.json

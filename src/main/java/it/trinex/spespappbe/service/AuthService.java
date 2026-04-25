@@ -1,7 +1,7 @@
 package it.trinex.spespappbe.service;
 
-import it.trinex.spespappbe.dto.request.CompleteLoginRequest;
-import it.trinex.spespappbe.dto.response.CompleteLoginResponse;
+import it.trinex.spespappbe.dto.request.auth.CompleteLoginRequest;
+import it.trinex.spespappbe.dto.response.auth.CompleteLoginResponse;
 import it.trinex.spespappbe.exception.RecordNotFoundException;
 import it.trinex.spespappbe.exception.UnauthorizedException;
 import it.trinex.spespappbe.model.AuthChallenge;
@@ -57,7 +57,7 @@ public class AuthService {
         if(principal == null) {
             throw new UnauthorizedException("Autenticazione fallita, utente non trovato");
         }
-        String authToken = jwtService.generaToken(Map.of(), principal);
+        String authToken = jwtService.generaToken(Map.of("uid", principal.getId()), principal);
 
         return CompleteLoginResponse.builder()
                 .authToken(authToken)

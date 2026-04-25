@@ -1,8 +1,8 @@
 package it.trinex.spespappbe.controller;
 
-import it.trinex.spespappbe.dto.request.CompleteLoginRequest;
-import it.trinex.spespappbe.dto.request.InitLoginRequest;
-import it.trinex.spespappbe.dto.response.CompleteLoginResponse;
+import it.trinex.spespappbe.dto.request.auth.CompleteLoginRequest;
+import it.trinex.spespappbe.dto.request.auth.InitLoginRequest;
+import it.trinex.spespappbe.dto.response.auth.CompleteLoginResponse;
 import it.trinex.spespappbe.model.AuthChallenge;
 import it.trinex.spespappbe.service.AuthService;
 import jakarta.validation.Valid;
@@ -10,10 +10,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/auth")
 public class AuthController {
 
 
