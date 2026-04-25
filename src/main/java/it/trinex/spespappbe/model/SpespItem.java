@@ -36,7 +36,11 @@ public class SpespItem {
     private Ingredient ingredient;
 
     @Column(nullable = false)
-    private String quantity;
+    private float quantity;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UnitType unitType;
 
     @Column(nullable = false)
     private boolean checked;
