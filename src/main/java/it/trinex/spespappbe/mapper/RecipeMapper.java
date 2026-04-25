@@ -11,7 +11,6 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {IngredientMapper.class})
 public interface RecipeMapper {
 
-    @Mapping(target = "ingredients", ignore = true)
     RecipeDTO toDto(Recipe recipe);
 
     Recipe toEntity(RecipeDTO recipeDto);
