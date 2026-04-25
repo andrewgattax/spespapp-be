@@ -1,5 +1,6 @@
 package it.trinex.spespappbe.dto;
 
+import it.trinex.spespappbe.model.UnitType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class SpespItemDTO {
     private IngredientDTO ingredient;
     private String quantity;
     private boolean checked;
+    private UnitType unitType;
     private Instant createdAt;
-    private Instant lastModifiedAt;
+    private Instant updatedAt;
 }

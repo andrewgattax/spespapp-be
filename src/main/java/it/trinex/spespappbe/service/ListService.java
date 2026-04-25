@@ -132,10 +132,6 @@ public class ListService {
     public ListResponseDTO deleteItemBulk(DeleteItemBulkRequest request) {
         List<SpespItem> itemsToDelete = spespItemRepo.findAllById(request.getItemIds());
 
-        if (itemsToDelete.size() != request.getItemIds().size()) {
-            throw new RecordNotFoundException("Alcuni Spespitem non sono stati trovati");
-        }
-
         spespItemRepo.deleteAll(itemsToDelete);
 
         return getList();
