@@ -28,8 +28,8 @@ public class OpenApiConfig {
                                 .description("Documentazione delle API di Spespapp"))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .servers(List.of(
-                        new Server().url("https://spespapp.ndrw.cat/api"),
-                        new Server().url("http://localhost:8080/api")
+                        new Server().url("http://localhost:8080/api"),
+                        new Server().url("https://spespapp.ndrw.cat/api")
                 ))
                 .components(new Components()
                         .addSecuritySchemes(securitySchemeName,
