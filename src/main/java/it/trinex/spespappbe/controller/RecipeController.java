@@ -1,8 +1,8 @@
 package it.trinex.spespappbe.controller;
 
 import it.trinex.spespappbe.dto.RecipeDTO;
-import it.trinex.spespappbe.dto.request.AddRecipeDTO;
-import it.trinex.spespappbe.dto.request.UpdateRecipeDTO;
+import it.trinex.spespappbe.dto.request.recipe.AddRecipeDTO;
+import it.trinex.spespappbe.dto.request.recipe.UpdateRecipeDTO;
 import it.trinex.spespappbe.mapper.RecipeMapper;
 import it.trinex.spespappbe.service.RecipeService;
 import jakarta.validation.Valid;

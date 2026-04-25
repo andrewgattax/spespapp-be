@@ -5,6 +5,7 @@ import it.trinex.spespappbe.dto.request.list.AddSpespItemBulkRequest;
 import it.trinex.spespappbe.dto.request.list.AddSpespItemRequest;
 import it.trinex.spespappbe.dto.request.list.CheckItemBulkRequest;
 import it.trinex.spespappbe.dto.request.list.DeleteItemBulkRequest;
+import it.trinex.spespappbe.dto.request.list.EditSpespItemRequest;
 import it.trinex.spespappbe.dto.response.list.ListResponseDTO;
 import it.trinex.spespappbe.exception.RecordNotFoundException;
 import it.trinex.spespappbe.mapper.SpespItemMapper;
@@ -56,6 +57,7 @@ public class ListService {
                 .checked(false)
                 .priorityLevel(request.getPriorityLevel())
                 .quantity(request.getQuantity())
+                .unitType(request.getUnitType())
                 .build();
 
         spespItemRepo.save(newItem);
@@ -79,6 +81,7 @@ public class ListService {
                     .checked(false)
                     .priorityLevel(item.getPriorityLevel())
                     .quantity(item.getQuantity())
+                    .unitType(item.getUnitType())
                     .build();
 
             toPush.add(newItem);
@@ -134,6 +137,24 @@ public class ListService {
         }
 
         spespItemRepo.deleteAll(itemsToDelete);
+
+        return getList();
+    }
+
+    public ListResponseDTO editItem(Long id, EditSpespItemRequest request) {
+        SpespItem item = spespItemRepo.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Spespitem non trovato con id: " + id));
+
+        // Update only the editable fields
+        item.setQuantity(request.getQuantity());
+        if (request.getUnitType() != null) {
+            item.setUnitType(request.getUnitType());
+        }
+        if (request.getPriorityLevel() != null) {
+            item.setPriorityLevel(request.getPriorityLevel());
+        }
+
+        spespItemRepo.save(item);
 
         return getList();
     }

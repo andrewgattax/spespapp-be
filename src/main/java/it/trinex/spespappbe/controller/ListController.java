@@ -4,6 +4,7 @@ import it.trinex.spespappbe.dto.request.list.AddSpespItemBulkRequest;
 import it.trinex.spespappbe.dto.request.list.AddSpespItemRequest;
 import it.trinex.spespappbe.dto.request.list.CheckItemBulkRequest;
 import it.trinex.spespappbe.dto.request.list.DeleteItemBulkRequest;
+import it.trinex.spespappbe.dto.request.list.EditSpespItemRequest;
 import it.trinex.spespappbe.dto.response.list.ListResponseDTO;
 import it.trinex.spespappbe.service.ListService;
 import jakarta.validation.Valid;
@@ -51,6 +52,13 @@ public class ListController {
     @DeleteMapping("/delete-bulk")
     public ResponseEntity<ListResponseDTO> deleteItemBulk(@RequestBody DeleteItemBulkRequest request) {
         return ResponseEntity.ok(listService.deleteItemBulk(request));
+    }
+
+    @PutMapping("/item/{id}")
+    public ResponseEntity<ListResponseDTO> editItem(
+            @PathVariable Long id,
+            @Valid @RequestBody EditSpespItemRequest request) {
+        return ResponseEntity.ok(listService.editItem(id, request));
     }
 
 }

@@ -1,5 +1,6 @@
-package it.trinex.spespappbe.dto.request;
+package it.trinex.spespappbe.dto.request.recipe;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +13,10 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateRecipeDTO {
+public class AddRecipeDTO {
+    @NotBlank
+    private String name;
+
     @NotEmpty
     private List<String> ingredientNames;
 }
