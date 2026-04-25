@@ -5,7 +5,7 @@ import base64url from 'base64url';
 
 // Configuration
 const API_BASE_URL = 'http://localhost:8080/api/auth';
-const USERNAME = 'manu';
+const USERNAME = process.argv[2] || 'manu';
 
 async function testAuthentication() {
   try {
