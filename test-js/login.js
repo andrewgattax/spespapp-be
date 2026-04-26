@@ -49,7 +49,8 @@ async function testAuthentication() {
     console.log('Phase 2: Completing login...');
     const completeResponse = await axios.post(`${API_BASE_URL}/login/complete`, {
       challengeId: challengeId,
-      signatureBase64: signatureBase64
+      signatureBase64: signatureBase64,
+      deviceId: "nigger"
     });
 
     const { authToken } = completeResponse.data;
