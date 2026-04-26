@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface PublicKeyRepo extends JpaRepository<UserPublicKey, Long> {
 
-    Optional<UserPublicKey> findByDeviceId(String deviceId);
 }

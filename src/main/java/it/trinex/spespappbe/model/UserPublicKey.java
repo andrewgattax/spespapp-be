@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "user_public_keys")
+@Table(
+        name = "user_public_keys",
+        uniqueConstraints = { @UniqueConstraint(columnNames = {"user_id", "device_id"} )
+})
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,6 +25,6 @@ public class UserPublicKey {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String publicKeyBase64;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String deviceId;
 }
