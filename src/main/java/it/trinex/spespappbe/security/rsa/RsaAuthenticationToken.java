@@ -11,11 +11,13 @@ public class RsaAuthenticationToken extends AbstractAuthenticationToken {
 
     private final UUID challengeId;
     private final String signatureBase64;
+    private final String deviceId;
 
-    public RsaAuthenticationToken(UUID principal, String credentials) {
+    public RsaAuthenticationToken(UUID principal, String credentials, String deviceId) {
         super((Collection<? extends GrantedAuthority>) null);
         this.challengeId = principal;
         this.signatureBase64 = credentials;
+        this.deviceId = deviceId;
         setAuthenticated(false);
     }
 
@@ -28,4 +30,6 @@ public class RsaAuthenticationToken extends AbstractAuthenticationToken {
     public @Nullable UUID getPrincipal() {
         return challengeId;
     }
+
+    public @Nullable String getDeviceId() { return deviceId; }
 }

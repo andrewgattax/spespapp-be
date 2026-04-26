@@ -27,7 +27,7 @@ async function testAuthentication() {
     console.log(`  Nonce (base64url): ${nonceBase64.substring(0, 20)}...\n`);
 
     // Decode nonce from base64url to raw bytes
-    const nonceBytes = base64url.toBuffer(nonceBase64);
+    const nonceBytes = Buffer.from(nonceBase64, 'base64');
     console.log(` Nonce decoded (${nonceBytes.length} bytes)\n`);
 
     // Sign the nonce using RSA-SHA256
@@ -49,7 +49,8 @@ async function testAuthentication() {
     console.log('Phase 2: Completing login...');
     const completeResponse = await axios.post(`${API_BASE_URL}/login/complete`, {
       challengeId: challengeId,
-      signatureBase64: signatureBase64
+      signatureBase64: signatureBase64,
+      deviceId: "nigger"
     });
 
     const { authToken } = completeResponse.data;
