@@ -28,7 +28,7 @@ public class AuthChallenge {
 
         secureRandom.nextBytes(nonce);
 
-        this.nonceBase64 = Base64.getUrlEncoder().withoutPadding()
+        this.nonceBase64 = Base64.getEncoder().withoutPadding()
                 .encodeToString(nonce);
 
         this.expiresAt = Instant.now().plusSeconds(30);

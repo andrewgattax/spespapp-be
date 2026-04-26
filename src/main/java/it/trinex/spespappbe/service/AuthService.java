@@ -11,6 +11,7 @@ import it.trinex.spespappbe.security.JwtService;
 import it.trinex.spespappbe.security.JwtUserPrincipal;
 import it.trinex.spespappbe.security.rsa.RsaAuthenticationToken;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -22,6 +23,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
     private final UserRepo userRepo;
     private final RedisService redisService;
@@ -58,6 +60,8 @@ public class AuthService {
             throw new UnauthorizedException("Autenticazione fallita, utente non trovato");
         }
         String authToken = jwtService.generaToken(Map.of("uid", principal.getId()), principal);
+
+        log.info("Loggato utente: " + principal.getUsername());
 
         return CompleteLoginResponse.builder()
                 .authToken(authToken)

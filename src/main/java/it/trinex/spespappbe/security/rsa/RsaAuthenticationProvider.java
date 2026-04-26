@@ -56,7 +56,7 @@ public class RsaAuthenticationProvider implements AuthenticationProvider {
                 .map(UserPublicKey::getPublicKeyBase64)
                 .toList();
 
-        byte[] nonce = Base64.getUrlDecoder().decode(challenge.getNonceBase64());
+        byte[] nonce = Base64.getDecoder().decode(challenge.getNonceBase64());
 
         log.debug("Starting signature verification for user: {}", user.getUsername());
         log.debug("Challenge ID: {}", challenge.getId());

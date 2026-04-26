@@ -33,4 +33,12 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/login/test")
+    public ResponseEntity<CompleteLoginResponse> testLogin() {
+        CompleteLoginResponse response = CompleteLoginResponse.builder()
+                .authToken("eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjEsInN1YiI6Im1hbnUiLCJpYXQiOjE3NzcxNTM1NjIsImV4cCI6MTc3OTc0NTU2Mn0.msAu2reLLQTFA5oxHaw-Z-A-RvT-mff44_4sshHGD90")
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
 }
