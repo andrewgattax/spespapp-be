@@ -17,7 +17,7 @@ public class SpespappUser {
     @Column(unique = true)
     private String username;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private List<UserPublicKey> publicKeys = new ArrayList<>();
 }
