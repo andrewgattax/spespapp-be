@@ -41,17 +41,24 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/key")
+    @PutMapping("/config/public-key")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> updateKey(@Valid @RequestBody UpdatePublicKeyRequest request) {
         authService.updateKeys(request);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/device-id")
+    @PutMapping("/config/device-id")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> updateDeviceId(@Valid @RequestBody UpdateDeviceIdRequest request) {
         authService.updateDeviceId(request.getPreviousDeviceId(), request.getNewDeviceId());
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/config/{devideId}")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Void> deleteConfiguration(@PathVariable String devideId) {
+        authService.deletePublicKey(devideId);
         return ResponseEntity.ok().build();
     }
 }

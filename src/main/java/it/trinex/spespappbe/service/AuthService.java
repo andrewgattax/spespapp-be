@@ -105,4 +105,16 @@ public class AuthService {
 
         publicKeyRepo.save(key);
     }
+
+    public void deletePublicKey(String deviceId) {
+        SpespappUser user = currentUserService.getCurrentUser()
+                .orElseThrow(() -> new UnauthorizedException("Errore nel caricamento dell'utente"));
+
+        UserPublicKey key = user.getPublicKeys().stream()
+                .filter(k -> k.getDeviceId().equals(deviceId))
+                .findFirst()
+                .orElseThrow(() -> new RecordNotFoundException("Chiave pubblica non trovata per il device ID: " + deviceId));
+
+        publicKeyRepo.delete(key);
+    }
 }
