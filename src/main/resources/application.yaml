@@ -32,7 +32,3 @@ security:
     secret: ${JWT_SECRET}
     expiration-ms: ${JWT_EXPIRATION_MS:3600000}
 
-logging:
-  level:
-    it.trinex.spespappbe.security.rsa.RsaAuthenticationProvider: DEBUG
-    org.springframework.security: DEBUG

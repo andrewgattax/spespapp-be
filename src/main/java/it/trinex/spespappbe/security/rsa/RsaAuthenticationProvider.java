@@ -40,6 +40,8 @@ public class RsaAuthenticationProvider implements AuthenticationProvider {
 
         AuthChallenge challenge = redisService.getChallenge(authenticationToken.getPrincipal());
 
+        String deviceId = authenticationToken.getDeviceId();
+
         if(challenge == null) {
             throw new BadCredentialsException("Invalid challenge");
         }
@@ -51,10 +53,12 @@ public class RsaAuthenticationProvider implements AuthenticationProvider {
         SpespappUser user = userRepo.findByUsername(challenge.getUsername())
                 .orElseThrow(() -> new AuthenticationCredentialsNotFoundException("Utente non trovato con username: " + challenge.getUsername()));
 
-        List<String> publicKeysBase64 = user.getPublicKeys()
+       String publicKeyBase64 = user.getPublicKeys()
                 .stream()
-                .map(UserPublicKey::getPublicKeyBase64)
-                .toList();
+                .filter(key -> key.getDeviceId().equals(deviceId))
+                .findFirst()
+                .orElseThrow(() -> new BadCredentialsException("Chiave pubblica non trovata per dispositivo: " + deviceId))
+                .getPublicKeyBase64();
 
         byte[] nonce = Base64.getDecoder().decode(challenge.getNonceBase64());
 
@@ -63,22 +67,9 @@ public class RsaAuthenticationProvider implements AuthenticationProvider {
         log.debug("Nonce (base64url): {}", challenge.getNonceBase64());
         log.debug("Nonce length: {} bytes", nonce.length);
         log.debug("Signature (base64): {}", credentialsBase64.substring(0, Math.min(50, credentialsBase64.length())));
-        log.debug("Number of public keys to try: {}", publicKeysBase64.size());
+        log.debug("Attempting verification with public key...");
 
-        boolean isVerified = false;
-
-        for(String publicKeyBase64 : publicKeysBase64) {
-            log.debug("Attempting verification with public key...");
-            boolean isValid = isSignatureValid(nonce, publicKeyBase64, credentialsBase64);
-            log.debug("Verification result: {}", isValid);
-            if(isValid) {
-                isVerified = true;
-                log.info("Signature verified successfully for user: {}", user.getUsername());
-                break;
-            }
-        }
-
-        if(isVerified) {
+        if(isSignatureValid(nonce, publicKeyBase64, credentialsBase64)) {
             return new WhiteAuthenticationToken(new JwtUserPrincipal(user.getId(), user.getUsername(), List.of()), List.of());
         }
 

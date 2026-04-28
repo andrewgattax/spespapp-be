@@ -1,13 +1,19 @@
 package it.trinex.spespappbe.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 @Entity
-@Table(name = "user_public_keys")
+@Table(
+        name = "user_public_keys",
+        uniqueConstraints = { @UniqueConstraint(columnNames = {"user_id", "device_id"} )
+})
 @Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UserPublicKey {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,9 +25,6 @@ public class UserPublicKey {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String publicKeyBase64;
 
-    public UserPublicKey() {}
-
-    public UserPublicKey(String publicKeyBase64) {
-        this.publicKeyBase64 = publicKeyBase64;
-    }
+    @Column(nullable = false)
+    private String deviceId;
 }
