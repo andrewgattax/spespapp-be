@@ -37,6 +37,13 @@ public class RecipeController {
         return ResponseEntity.ok(recipeMapper.toDtoList(recipeService.getAllRecipes()));
     }
 
+    @GetMapping("/{name}")
+    public ResponseEntity<RecipeDTO> getRecipeByName(@PathVariable String name) {
+        return ResponseEntity.ok(recipeMapper.toDto(
+                recipeService.getRecipeByName(name)
+        ));
+    }
+
     @PutMapping("/{name}")
     public ResponseEntity<RecipeDTO> updateRecipe(
             @PathVariable String name,

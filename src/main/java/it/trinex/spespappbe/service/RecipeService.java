@@ -32,6 +32,11 @@ public class RecipeService {
         return recipeRepo.findAll();
     }
 
+    public Recipe getRecipeByName(String name) {
+        return recipeRepo.findByName(name)
+                .orElseThrow(() -> new RecordNotFoundException("Recipe not found: " + name));
+    }
+
     @Transactional
     public Recipe updateRecipe(String name, List<String> ingredientNames) {
         Recipe recipe = recipeRepo.findByName(name)
