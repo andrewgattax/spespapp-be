@@ -13,5 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class RecipeDTO {
     private Long id;
+    private String name;
     private List<IngredientDTO> ingredients;
 }
