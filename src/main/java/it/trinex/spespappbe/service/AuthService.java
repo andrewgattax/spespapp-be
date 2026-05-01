@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.UUID;
@@ -106,6 +107,7 @@ public class AuthService {
         publicKeyRepo.save(key);
     }
 
+    @Transactional
     public void deletePublicKey(String deviceId) {
         SpespappUser user = currentUserService.getCurrentUser()
                 .orElseThrow(() -> new UnauthorizedException("Errore nel caricamento dell'utente"));
@@ -115,6 +117,8 @@ public class AuthService {
                 .findFirst()
                 .orElseThrow(() -> new RecordNotFoundException("Chiave pubblica non trovata per il device ID: " + deviceId));
 
-        publicKeyRepo.delete(key);
+        user.getPublicKeys().remove(key);
+        
+        userRepo.save(user);
     }
 }

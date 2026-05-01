@@ -19,7 +19,7 @@ public class UserPublicKey {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id")
     private SpespappUser user;
 
     @Column(nullable = false, columnDefinition = "TEXT")
